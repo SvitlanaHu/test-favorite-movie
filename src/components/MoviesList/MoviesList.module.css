@@ -1,0 +1,15 @@
+.list {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style-type: none;
+}
+.link {
+  text-decoration: none;
+  color: #bdef84;
+}
+.link:hover,
+.link:focus {
+  color: orangered;
+}
