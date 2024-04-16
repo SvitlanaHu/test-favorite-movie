@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPopular } from "../components/API/tmdbApi";
+// import { getPopular } from "../components/API/tmdbApi";
 import { ErrorMessage } from "../components/ErrorMessage/ErrorMessage";
 import { Loader } from "../components/Loader/Loader";
 import { MoviesList } from "../components/MoviesList/MoviesList";
