@@ -4,7 +4,7 @@ import styles from "./AdditionalInfo.module.css";
 export const AdditionalInfo = () => {
   return (
     <>
-      <hr></hr>
+      <hr>Movies List</hr>
       <div className={styles.cont}>
         <p className={styles.subTitle}>Additional information</p>
         <ul className={styles.list}>

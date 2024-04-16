@@ -13,3 +13,7 @@
 .link:focus {
   color: orangered;
 }
+.rating {
+  display: flex;
+  gap: 40px;
+}
