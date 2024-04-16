@@ -2,7 +2,7 @@ import styles from "./MovieCard.module.css";
 
 export const MovieCard = ({ movie }) => {
   const defaultImg =
-    "https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700";
+    "https://doingwell.mit.edu/wp-content/uploads/2023/10/Movie-Night.jpeg";
   return (
     <div className={styles.card}>
       <img
