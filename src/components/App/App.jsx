@@ -5,6 +5,7 @@ import { Loader } from "../Loader/Loader";
 
 const HomePage = lazy(() => import("../../pages/HomePage"));
 const MoviesPage = lazy(() => import("../../pages/MoviesPage"));
+const MyFavoriteMoviesPage = lazy(() => import("../../pages/MyFavoriteMoviesPage"))
 const MovieDetailsPage = lazy(() => import("../../pages/MovieDetailsPage"));
 const NotFoundPage = lazy(() => import("../../pages/NotFoundPage"));
 const NavBar = lazy(() => import("../Navbar/Navbar"));
@@ -20,6 +21,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/favorite" element={<MyFavoriteMoviesPage />} />
           <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />

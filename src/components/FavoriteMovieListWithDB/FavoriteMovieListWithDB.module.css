@@ -1,0 +1,25 @@
+.list {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  list-style-type: none;
+}
+.link {
+  display: block;
+  width: 300px;
+  text-decoration: none;
+  color: #bdef84;
+  font-size: 20px;
+}
+.link:hover,
+.link:focus {
+  color: orangered;
+}
+.rating {
+  display: flex;
+  gap: 40px;
+}
+.img {
+  width: 300px;
+}

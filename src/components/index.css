@@ -48,3 +48,21 @@ img {
 .container {
   max-width: 750px;
 }
+
+button {
+  background-color: #181b18;
+  color: white;
+  padding: 10px 20px;
+  margin: 20px auto;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 3px 3px 10px rgba(216, 212, 212, 0.5);
+}
+button:active,
+button:hover,
+button:focus {
+  background-color: black;
+  color: orangered;
+  font-weight: 700;
+}
