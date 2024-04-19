@@ -20,10 +20,13 @@ export const MovieCard = ({ movie }) => {
           {movie.title} ({movie.release_date.slice(0, 4)})
         </p>
         <p>Movie Popularity: {movie.popularity.toFixed(1)}%</p>
-        <p className={styles.overview}>Overview</p>
+        <p className={styles.overview}>Опис</p>
         <p>{movie.overview}</p>
-        <p className={styles.gerres}>Genres</p>
+        <p>Рейтинг: {movie.rating}</p>
+        <p>Дата виходу: {movie.release_date}</p>
+        <p className={styles.gerres}>Жанр</p>
         <p>{movie.genres.map((item) => item.name).join(", ")}</p>
+        <p>Директор: {movie.director}</p>
       </div>
     </div>
   );

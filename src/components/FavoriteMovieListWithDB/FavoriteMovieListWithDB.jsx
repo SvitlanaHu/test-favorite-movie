@@ -1,45 +1,32 @@
-// FavoriteMovieListWithDB.jsx
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import {AddEditMovieForm} from "../AddEditMovieForm/AddEditMovieForm";
-import styles from "./FavoriteMovieListWithDB.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import styles from './FavoriteMovieListWithDB.module.css';
+import FavoriteMovie from "../FavoriteMovie/FavoriteMovie";
+import { selectFilteredMovies } from "../../redux/selector";
+import { deleteMovies } from "../../redux/operations";
 
-export const FavoriteMovieListWithDB = () => {
-  const [movies, setMovies] = useState([]);
+const FavoriteMovieListWithDB = () => {
+    const dispatch = useDispatch();
+    const filteredMovies = useSelector(selectFilteredMovies);
+    const handleDelete = (id) => {
+        dispatch(deleteMovies(id));
+    };
 
-  useEffect(() => {
-    fetch("/db.json") 
-      .then((response) => response.json())
-      .then((data) => setMovies(data.movies));
-  }, []);
-
-  const addMovie = (movieData) => {
-    setMovies([...movies, movieData]);
-  };
-
-  return (
-    <>
-      <h2>Add a New Movie</h2>
-      <AddEditMovieForm onSubmit={addMovie} />
-
-      <h2>My Favorite Movie List</h2>
-      <ul className={styles.list}>
-        {movies.map((movie) => (
-          <li key={movie.id}>            
-              <img src={movie.image} alt={movie.title} className={styles.img} />
-              <div>
-                <Link to={`/favorite/${movie.id}`} className=     {styles.link}>                
-                  {movie.title}
-                </Link>
-                <div className={styles.rating}>
-                  <p>Rating: {movie.rating}</p>
-                  <p>Release Date: {movie.release_date}</p>
-                </div>                
-              </div>            
-          </li>
-        ))}
-      </ul>
-    </>
-  );
+    return (
+        <div className={styles.container}>
+            <ul className={styles.movie}>
+                {filteredMovies.map(({ id, title, rating, release_date, image }) => (
+                    <FavoriteMovie
+                        key={id}
+                        id={id}
+                        title={title}
+                        rating={rating}
+                        release_date={release_date}
+                        image={image}
+                        onDelete={() => handleDelete(id)}
+                    />
+                ))}
+            </ul>
+        </div>
+    );
 };
-
+export default FavoriteMovieListWithDB;

@@ -16,12 +16,6 @@
 .link:focus {
   color: orangered;
 }
-
-.box {
-  display: flex;
-  gap: 5px;
-}
-
 .rating {
   display: flex;
   gap: 40px;
@@ -31,7 +25,6 @@
 }
 .btn {
   color: none;
-  padding: 0;
 }
 /* Стилі для улюбленого фільму */
 .favorite {

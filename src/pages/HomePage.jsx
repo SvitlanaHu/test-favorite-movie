@@ -5,7 +5,7 @@ import { Loader } from "../components/Loader/Loader";
 import { MoviesList } from "../components/MoviesList/MoviesList";
 
 export default function HomePage() {
-  const [popularFilms, setPopularFilms] = useState([]);
+  const [popularmovies, setPopularmovies] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -15,10 +15,10 @@ export default function HomePage() {
       try {
         setLoading(true);
         setError(false);
-        const fetchedFilms = await getPopular({
+        const fetchedmovies = await getPopular({
           abortController: controller,
         });
-        setPopularFilms(fetchedFilms);
+        setPopularmovies(fetchedmovies);
       } catch (error) {
         if (error.code !== "ERR_CANCELED") {
           setError(true);
@@ -38,8 +38,8 @@ export default function HomePage() {
     <main>
       {error && <ErrorMessage />}
       {loading && <Loader />}
-      {popularFilms.length > 0 && <p>Trending today</p> && (
-        <MoviesList films={popularFilms} />
+      {popularmovies.length > 0 && <p>Trending today</p> && (
+        <MoviesList movies={popularmovies} />
       )}
     </main>
   );

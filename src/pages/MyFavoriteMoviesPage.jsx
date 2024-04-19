@@ -1,19 +1,33 @@
-import { useState } from "react";
-import { FavoriteMovieListWithDB } from "../components/FavoriteMovieListWithDB/FavoriteMovieListWithDB";
+// import { useState } from "react";
+import { useEffect } from "react";
+import { lazy, Suspense } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Loader } from "../components/Loader/Loader";
+import { selectError, selectIsLoading } from "../redux/selector"; 
+import { fetchMovies } from "../redux/operations";
+
+// const AddEditMovieForm = lazy(() => import("../components/AddEditMovieForm/AddEditMovieForm"));
+const FavoriteMovieListWithDB = lazy(() => import("../components/FavoriteMovieListWithDB/FavoriteMovieListWithDB"));
 
 const MyFavoriteMoviesPage = () => {
-  const [showForm, setShowForm] = useState(false);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
-  const handleToggleForm = () => {
-    setShowForm(!showForm);
-  };
+  useEffect(() => {
+    dispatch(fetchMovies());
+  }, [dispatch]);
+
   return (
     <main>
-      <h1>My Favorite Movie List</h1>
-      <button onClick={handleToggleForm}>Add New Movie</button>
-      {showForm && <FavoriteMovieListWithDB />}
+      <Suspense fallback={<Loader />}>
+        <h1>My Favorite Movie List</h1>
+       
+        <FavoriteMovieListWithDB />
+        {isLoading && !error && <Loader />}
+      </Suspense>
     </main>
   );
 };
-
+ 
 export default MyFavoriteMoviesPage;

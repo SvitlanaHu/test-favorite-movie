@@ -1,33 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { MdFavorite } from "react-icons/md";
-import styles from "./MoviesList.module.css";
-import Button from "../Button/Button";
+import { selectFilteredMovies, selectFavorite } from "../../redux/selector";
+import styles from "./styles.module.css";
+import { Button } from "../Button/Button";
 
-export const MoviesList = ({ movies }) => {
+const FavoriteMoviesList = ({ removeFromFavorites }) => {
+  const filteredMovies = useSelector(selectFilteredMovies);
+  const favoriteMovies = useSelector(selectFavorite);
   const location = useLocation();
   const defaultImg =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjdn4c3Gb3xX-8vCDtC7SDbRDjTNjufAbrDg&usqp=CAU";
-      
+
   // Створюємо стан для зберігання списку улюблених фільмів
   const [favorites, setFavorites] = useState([]);
 
   // Функція для додавання фільму до списку улюблених
-  const addToFavorites = (movieId) => {
+ const addToFavorites = useCallback((movieId) => {
     if (!favorites.includes(movieId)) {
       setFavorites([...favorites, movieId]);
     }
-  };
+  }, [favorites]);
 
-  // Функція для видалення фільму зі списку улюблених
-  const removeFromFavorites = (movieId) => {
-    setFavorites(favorites.filter((id) => id !== movieId));
-  };
+  // const handleDelete = (id) => {
+  //   dispatch(deleteMovies(id));
+  // };
+
+  useEffect(() => {
+    // Збереження даних улюблених фільмів у localStorage
+    localStorage.setItem('favorite', JSON.stringify(favoriteMovies));
+  }, [favoriteMovies]);
+
+  useEffect(() => {
+    // Завантаження даних улюблених фільмів з localStorage при першому рендері
+    const loadFavoriteMovies = () => {
+      const favoriteData = localStorage.getItem('favorite');
+      if (favoriteData) {
+        const parsedData = JSON.parse(favoriteData);
+        // Викликайте addToFavorites для кожного фільму в збережених даних
+        parsedData.forEach((movieId) => {
+          addToFavorites(movieId);
+        });
+      }
+    };
+    loadFavoriteMovies();
+  }, [addToFavorites]);
 
   return (
-    <ul className={styles.list}>
-      {movies.map((movie) => (
-        <li key={movie.id}>
+    <ul className="favorites-list">
+      {filteredMovies.map((movie) => (
+         <li key={movie.id}>
             <img src={movie.backdrop_path
                       ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
                       : defaultImg
@@ -60,3 +83,5 @@ export const MoviesList = ({ movies }) => {
     </ul>
   );
 };
+
+export default FavoriteMoviesList;
