@@ -1,14 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-axios.defaults.baseURL = "https://66217cda27fcd16fa6c71982.mockapi.io";
+import apiMockapi from "../services/apiMockapi.js";
 
 export const fetchMovies = createAsyncThunk(
     "movies/fetchAll",
-    async (_, thunkAPI) => {
+    async (showedMovies, thunkAPI) => {
         try {
-            const response = await axios.get("/movies");
-            return response.data;
+            const response = await apiMockapi("/movies");
+            response.moviesCount = response.data.length;
+            const { data, moviesCount } = response;
+            const editedData = data.slice(0, showedMovies)
+            const EditedResponse = { data: editedData, moviesCount }
+            return EditedResponse;
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
         }
